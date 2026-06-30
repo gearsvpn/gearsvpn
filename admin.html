@@ -466,59 +466,72 @@ function buildInvoiceHTML(o){
 }
 function buildVpnHTML(o){
   var s=getSettings(); var cp=o.cpanel;
-  var hidden='<span style="color:var(--warning);font-size:.75rem">Shown in Welcome Email tab</span>';
+  var hidden='<span style="color:var(--warning);font-size:.75rem">Sent securely to client email</span>';
   document.getElementById("cpanel-details-box").innerHTML=
-    '<div class="cp-title">VPN Account</div>'
+    '<div class="cp-title">VPN Account Credentials</div>'
     +'<div class="cp-row"><span class="cp-label">Username</span><span class="cp-val">'+cp.username+'</span></div>'
     +'<div class="cp-row"><span class="cp-label">Password</span><span class="cp-val">'+hidden+'</span></div>'
-    +'<div class="cp-title" style="margin-top:.75rem">WireGuard / VLESS</div>'
-    +'<div class="cp-row"><span class="cp-label">Config URL</span><span class="cp-val">'+(s.cpanelUrl||"https://vpn.gearsvpn.com")+'</span></div>'
-    +'<div class="cp-row"><span class="cp-label">WG Key</span><span class="cp-val">'+hidden+'</span></div>'
+    +'<div class="cp-title" style="margin-top:.75rem">App Downloads (WireGuard)</div>'
+    +'<div class="cp-row"><span class="cp-label">iOS</span><span class="cp-val">apps.apple.com/app/wireguard/id1441195209</span></div>'
+    +'<div class="cp-row"><span class="cp-label">Android</span><span class="cp-val">play.google.com/store/apps/details?id=com.wireguard.android</span></div>'
+    +'<div class="cp-row"><span class="cp-label">Windows/macOS</span><span class="cp-val">wireguard.com/install</span></div>'
+    +'<div class="cp-title" style="margin-top:.75rem">Connection Details</div>'
+    +'<div class="cp-row"><span class="cp-label">Protocol</span><span class="cp-val">WireGuard / VLESS REALITY</span></div>'
     +'<div class="cp-row"><span class="cp-label">Server IP</span><span class="cp-val">'+cp.server+'</span></div>'
-    +'<div class="cp-title" style="margin-top:.75rem">DNS</div>'
-    +'<div class="cp-row"><span class="cp-label">NS1</span><span class="cp-val">'+(s.ns1||"ns1.gearsvpn.com")+'</span></div>'
-    +'<div class="cp-row"><span class="cp-label">NS2</span><span class="cp-val">'+(s.ns2||"ns2.gearsvpn.com")+'</span></div>'
+    +'<div class="cp-row"><span class="cp-label">Config File</span><span class="cp-val">'+hidden+'</span></div>'
     +'<div class="cp-row" style="margin-top:.5rem"><span class="cp-label">Generated</span><span class="cp-val" style="color:var(--muted)">'+cp.createdAt+'</span></div>';
 }
 function buildEmailHTML(o){
   var s=getSettings(); var cp=o.cpanel;
   var company=s.company||"GearsVPN";
   var adminEmail=s.adminEmail||"admin@gearsvpn.com";
-  var text="Subject: Your "+company+" VPN Account is Active — Welcome!\n"
-    +"Dear "+o.name+",\n\n"
-    +"Thank you for choosing "+company+"! Your payment has been confirmed and your VPN account is now active.\n\n"
+  var text="Subject: Welcome to "+company+" — Your VPN is Ready!\n"
+    +"\n"
+    +"Hi "+o.name+",\n\n"
+    +"Your "+company+" subscription is now active. Follow the steps below to get connected in minutes.\n\n"
     +"━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n"
-    +"  INVOICE DETAILS\n"
+    +" STEP 1 — DOWNLOAD WIREGUARD (FREE)\n"
     +"━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n"
-    +"  Invoice #   : "+o.id+"\n"
-    +"  Package     : "+o.plan+"\n"
-    +"  Amount Paid : $"+o.amount+"\n"
-    +"  Date        : "+o.date+"\n\n"
+    +" WireGuard is the free, open-source app used to connect.\n"
+    +" Download it for your device:\n\n"
+    +"   iPhone / iPad  → https://apps.apple.com/app/wireguard/id1441195209\n"
+    +"   Android        → https://play.google.com/store/apps/details?id=com.wireguard.android\n"
+    +"   Windows / Mac  → https://wireguard.com/install\n"
+    +"   Linux          → https://wireguard.com/install\n\n"
     +"━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n"
-    +"  YOUR VPN LOGIN DETAILS\n"
+    +" STEP 2 — IMPORT YOUR VPN CONFIG\n"
     +"━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n"
-    +"  Config URL  : "+(s.cpanelUrl||"https://vpn.gearsvpn.com")+"\n"
-    +"  Username    : "+cp.username+"\n"
-    +"  Password    : [Sent securely to your email]\n"
-    +"  Please change your password after first login.\n\n"
+    +" Your personal VPN config file will be sent to you\n"
+    +" separately in a secure email.\n\n"
+    +"   1. Open WireGuard\n"
+    +"   2. Tap '+' and choose 'Import from file'\n"
+    +"   3. Select the .conf file we send you\n"
+    +"   4. Tap 'Activate' — you're connected!\n\n"
+    +"   Account Username : "+cp.username+"\n"
+    +"   Account Password : [Sent securely to your email]\n\n"
     +"━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n"
-    +"  WIREGUARD / VLESS ACCESS\n"
+    +" STEP 3 — CHOOSE YOUR SERVER\n"
     +"━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n"
-    +"  Server IP   : "+cp.server+"\n"
-    +"  WG Key      : [Sent securely to your email]\n"
-    +"  Protocol    : WireGuard / VLESS REALITY\n\n"
+    +" Once connected, tap the tunnel to switch between\n"
+    +" any of our 15 server locations across 10 countries.\n\n"
+    +"   Protocol  : WireGuard (recommended for speed)\n"
+    +"               VLESS REALITY (recommended for stealth)\n"
+    +"   Bandwidth : Unlimited — no throttling, no caps\n"
+    +"   Logs      : None. We never record your activity.\n\n"
     +"━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n"
-    +"  DNS SERVERS\n"
+    +" YOUR SUBSCRIPTION\n"
     +"━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n"
-    +"  NS1         : "+(s.ns1||"ns1.gearsvpn.com")+"\n"
-    +"  NS2         : "+(s.ns2||"ns2.gearsvpn.com")+"\n\n"
+    +"   Plan      : "+o.plan+"\n"
+    +"   Amount    : $"+o.amount+"\n"
+    +"   Invoice   : "+o.id+"\n"
+    +"   Date      : "+o.date+"\n\n"
     +"━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n"
-    +"Keep this email safe — it contains your VPN credentials.\n"
-    +"Download our apps: iOS, Android, macOS, Windows, Linux.\n"
-    +"If you have any questions, reply to this email.\n\n"
-    +"Thank you for trusting "+company+"!\n\n"
-    +"Best regards,\n"
-    +company+" Support Team\n"
+    +" NEED HELP?\n"
+    +"━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n"
+    +" Reply to this email — we respond within 24 hours.\n"
+    +" Support is available 24/7.\n\n"
+    +"Enjoy fast, private internet.\n\n"
+    +"— The "+company+" Team\n"
     +adminEmail;
   document.getElementById("email-template-box").textContent=text;
 }
