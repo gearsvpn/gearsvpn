@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Privacy Policy — GearsVPN</title>
+  <style>
+    /* ── CSS Variables ───────────────────────────────────────────── */
+    :root {
+      --primary:      #e11d48;
+      --primary-dark: #be123c;
+      --bg:           #0a0a0a;
+      --bg2:          #111111;
+      --card:         #1a1a1a;
+      --border:       #2a2a2a;
+      --text:         #f5f5f5;
+      --muted:        #888;
+      --success:      #22c55e;
+    }
+
+    /* ── Reset / Base ────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    ul { list-style: none; }
+
+    /* ── Navigation ──────────────────────────────────────────────── */
+    nav {
+      background: var(--bg2);
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .nav-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      gap: 40px;
+    }
+
+    .nav-logo {
+      font-size: 1.2rem;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-shrink: 0;
+      text-decoration: none;
+      color: var(--text);
+    }
+
+    .nav-logo em {
+      font-style: normal;
+      font-weight: 800;
+      color: var(--primary);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      flex: 1;
+    }
+
+    .nav-links a {
+      color: var(--muted);
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--text); }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-shrink: 0;
+    }
+
+    .nav-actions .signin {
+      color: var(--muted);
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+
+    .nav-actions .signin:hover { color: var(--text); }
+
+    .btn-primary {
+      background: var(--primary);
+      color: #fff;
+      font-size: 0.875rem;
+      font-weight: 600;
+      padding: 9px 20px;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      transition: background 0.2s;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .btn-primary:hover { background: var(--primary-dark); }
+
+    /* ── Hero ────────────────────────────────────────────────────── */
+    .hero {
+      background: var(--bg);
+      border-bottom: 1px solid var(--border);
+      padding: 80px 24px 64px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, transparent, var(--primary), transparent);
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 600px;
+      height: 300px;
+      background: radial-gradient(ellipse at center, rgba(225, 29, 72, 0.07) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-label {
+      display: inline-block;
+      background: rgba(225, 29, 72, 0.15);
+      border: 1px solid var(--primary);
+      color: var(--primary);
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      border-radius: 6px;
+      padding: 5px 14px;
+      margin-bottom: 24px;
+    }
+
+    .hero h1 {
+      font-size: clamp(2rem, 5vw, 3rem);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      line-height: 1.15;
+      margin-bottom: 20px;
+    }
+
+    .hero-subtitle {
+      color: var(--muted);
+      font-size: 1.1rem;
+      max-width: 560px;
+      margin: 0 auto 16px;
+      line-height: 1.7;
+    }
+
+    .hero-date {
+      color: var(--muted);
+      font-size: 0.85rem;
+    }
+
+    /* ── Content ─────────────────────────────────────────────────── */
+    .content {
+      flex: 1;
+      padding: 64px 24px 96px;
+    }
+
+    .content-inner {
+      max-width: 760px;
+      margin: 0 auto;
+    }
+
+    /* ── Policy Section ──────────────────────────────────────────── */
+    .policy-section {
+      margin-bottom: 52px;
+    }
+
+    .policy-section h2 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      border-left: 4px solid var(--primary);
+      padding-left: 16px;
+      margin-bottom: 20px;
+      line-height: 1.3;
+    }
+
+    .policy-section p {
+      color: var(--muted);
+      line-height: 1.8;
+      margin-bottom: 12px;
+    }
+
+    .policy-section p:last-child { margin-bottom: 0; }
+
+    .policy-section p strong { color: var(--text); }
+
+    .policy-section ul {
+      color: var(--muted);
+      line-height: 1.8;
+      padding-left: 4px;
+    }
+
+    .policy-section ul li {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+
+    .policy-section ul li .bullet {
+      color: var(--primary);
+      font-weight: 700;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    /* ── Callout Grid ────────────────────────────────────────────── */
+    .callout-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-top: 20px;
+    }
+
+    .callout-box {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px 20px 16px;
+    }
+
+    .callout-box.collect  { border-top: 2px solid var(--success); }
+    .callout-box.no-collect { border-top: 2px solid var(--primary); }
+
+    .callout-box h3 {
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 14px;
+    }
+
+    .callout-box.collect h3    { color: var(--success); }
+    .callout-box.no-collect h3 { color: var(--primary); }
+
+    .callout-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      margin-bottom: 10px;
+      font-size: 0.9rem;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    .callout-item:last-child { margin-bottom: 0; }
+
+    .callout-item strong { color: var(--text); }
+
+    .check-icon {
+      color: var(--success);
+      font-weight: 700;
+      font-size: 1rem;
+      flex-shrink: 0;
+      line-height: 1.5;
+    }
+
+    .x-icon {
+      color: var(--primary);
+      font-weight: 700;
+      font-size: 1rem;
+      flex-shrink: 0;
+      line-height: 1.5;
+    }
+
+    /* ── Info Card ───────────────────────────────────────────────── */
+    .info-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 24px 28px;
+      margin-top: 16px;
+    }
+
+    .info-card p {
+      color: var(--muted);
+      line-height: 1.8;
+      margin-bottom: 10px;
+    }
+
+    .info-card p:last-child { margin-bottom: 0; }
+
+    .info-card p strong { color: var(--text); }
+
+    .service-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      margin-bottom: 14px;
+      color: var(--muted);
+      font-size: 0.9rem;
+      line-height: 1.65;
+    }
+
+    .service-row:last-child { margin-bottom: 0; }
+
+    .service-row strong { color: var(--text); }
+
+    .service-dot {
+      width: 7px;
+      height: 7px;
+      background: var(--primary);
+      border-radius: 50%;
+      flex-shrink: 0;
+      margin-top: 7px;
+    }
+
+    .service-row a {
+      color: var(--primary);
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+
+    .highlight-email {
+      color: var(--primary);
+      font-weight: 600;
+    }
+
+    /* ── Divider ─────────────────────────────────────────────────── */
+    .divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 52px 0;
+    }
+
+    /* ── Footer ──────────────────────────────────────────────────── */
+    footer {
+      background: var(--bg2);
+      border-top: 1px solid var(--border);
+    }
+
+    .footer-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 60px 24px 0;
+    }
+
+    .footer-columns {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 48px;
+      margin-bottom: 48px;
+    }
+
+    .footer-brand .footer-logo {
+      font-size: 1.1rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 14px;
+    }
+
+    .footer-brand .footer-logo em {
+      font-style: normal;
+      font-weight: 800;
+      color: var(--primary);
+    }
+
+    .footer-tagline {
+      color: var(--muted);
+      font-size: 0.875rem;
+      line-height: 1.7;
+      max-width: 280px;
+    }
+
+    .footer-col h4 {
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text);
+      margin-bottom: 16px;
+    }
+
+    .footer-col ul li {
+      margin-bottom: 10px;
+    }
+
+    .footer-col ul li a {
+      color: var(--muted);
+      font-size: 0.9rem;
+      transition: color 0.2s;
+    }
+
+    .footer-col ul li a:hover { color: var(--text); }
+
+    .footer-bottom {
+      border-top: 1px solid var(--border);
+      padding: 20px 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .footer-bottom-copy {
+      color: var(--muted);
+      font-size: 0.8rem;
+    }
+
+    .footer-bottom-links {
+      display: flex;
+      gap: 20px;
+    }
+
+    .footer-bottom-links a {
+      color: var(--muted);
+      font-size: 0.8rem;
+      transition: color 0.2s;
+    }
+
+    .footer-bottom-links a:hover { color: var(--text); }
+
+    /* ── Responsive ──────────────────────────────────────────────── */
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+
+      .callout-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-columns {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .footer-brand {
+        grid-column: 1 / -1;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .footer-columns {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-bottom {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════════════════ NAVIGATION -->
+  <nav>
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">⚙️ Gears<em>VPN</em></a>
+      <div class="nav-links">
+        <a href="index.html#features">Features</a>
+        <a href="index.html#network">Network</a>
+        <a href="index.html#apps">Apps</a>
+        <a href="index.html#pricing">Pricing</a>
+        <a href="index.html#faq">FAQ</a>
+      </div>
+      <div class="nav-actions">
+        <a href="login.html" class="signin">Sign in</a>
+        <a href="index.html#pricing" class="btn-primary">Get GearsVPN</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ═══════════════════════════════════════════════ HERO -->
+  <section class="hero">
+    <span class="hero-label">Legal</span>
+    <h1>Privacy Policy</h1>
+    <p class="hero-subtitle">We collect as little as possible. Here's exactly what we do and don't know about you.</p>
+    <p class="hero-date">Last updated: July 1, 2026</p>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════ CONTENT -->
+  <main class="content">
+    <div class="content-inner">
+
+      <!-- 1. Overview -->
+      <div class="policy-section">
+        <h2>1. Overview</h2>
+        <p>GearsVPN is built on a simple principle: <strong>we can't hand over data we don't have.</strong> Our service is architected from the ground up to operate without logging user activity, identifying browsing behaviour, or retaining information about your sessions.</p>
+        <p>This policy explains exactly what we collect, why we collect it, how we protect it, and — crucially — everything we deliberately do not collect. We aim to be plain-language and comprehensive so you never have to guess what happens to your information.</p>
+      </div>
+
+      <hr class="divider" />
+
+      <!-- 2. What We Collect -->
+      <div class="policy-section">
+        <h2>2. What We Collect</h2>
+        <p>We collect the absolute minimum required to operate and maintain your account. Nothing more.</p>
+
+        <div class="callout-grid">
+          <!-- Green box: what we DO collect -->
+          <div class="callout-box collect">
+            <h3>What we do collect</h3>
+            <div class="callout-item">
+              <span class="check-icon">✓</span>
+              <span><strong>Email address</strong> — used to create and identify your account, deliver billing receipts, and send critical security notices.</span>
+            </div>
+            <div class="callout-item">
+              <span class="check-icon">✓</span>
+              <span><strong>Payment reference</strong> — Stripe provides only a transaction confirmation and last-4-digit card reference. We never see or store your full card number.</span>
+            </div>
+            <div class="callout-item">
+              <span class="check-icon">✓</span>
+              <span><strong>Service emails</strong> — account creation confirmation, billing receipts, and security alerts.</span>
+            </div>
+          </div>
+
+          <!-- Red box: what we DON'T collect -->
+          <div class="callout-box no-collect">
+            <h3>What we never collect</h3>
+            <div class="callout-item">
+              <span class="x-icon">✕</span>
+              <span>Your real IP address</span>
+            </div>
+            <div class="callout-item">
+              <span class="x-icon">✕</span>
+              <span>IP addresses of servers you visit</span>
+            </div>
+            <div class="callout-item">
+              <span class="x-icon">✕</span>
+              <span>Your DNS queries</span>
+            </div>
+            <div class="callout-item">
+              <span class="x-icon">✕</span>
+              <span>Websites or content you access</span>
+            </div>
+            <div class="callout-item">
+              <span class="x-icon">✕</span>
+              <span>Connection timestamps or session durations</span>
+            </div>
+            <div class="callout-item">
+              <span class="x-icon">✕</span>
+              <span>Bandwidth used per session</span>
+            </div>
+            <div class="callout-item">
+              <span class="x-icon">✕</span>
+              <span>Device type or OS details</span>
+            </div>
+            <div class="callout-item">
+              <span class="x-icon">✕</span>
+              <span>Your location (beyond what you voluntarily provide)</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <hr class="divider" />
+
+      <!-- 3. What We DON'T Collect -->
+      <div class="policy-section">
+        <h2>3. What We DON'T Collect</h2>
+        <p>Our VPN infrastructure is explicitly designed so that the following data is never generated, transmitted to our systems, or stored anywhere on our servers:</p>
+        <ul>
+          <li><span class="bullet">—</span><span>Your real IP address or the origin IP of your connection</span></li>
+          <li><span class="bullet">—</span><span>The IP addresses of any websites, services, or servers you connect to while using GearsVPN</span></li>
+          <li><span class="bullet">—</span><span>Your DNS queries — we operate a private, non-logging DNS resolver</span></li>
+          <li><span class="bullet">—</span><span>The websites, pages, or any content you access or download</span></li>
+          <li><span class="bullet">—</span><span>Connection timestamps, session start times, or session durations</span></li>
+          <li><span class="bullet">—</span><span>The amount of bandwidth you consume per session or per day</span></li>
+          <li><span class="bullet">—</span><span>Your device type, operating system, or browser fingerprint</span></li>
+          <li><span class="bullet">—</span><span>Your physical location beyond what you voluntarily provide during sign-up</span></li>
+        </ul>
+        <p>Because this data is never created on our end, it cannot be subpoenaed, stolen, or disclosed — even under legal compulsion.</p>
+      </div>
+
+      <hr class="divider" />
+
+      <!-- 4. How We Use Your Data -->
+      <div class="policy-section">
+        <h2>4. How We Use Your Data</h2>
+        <p>We use the limited data we collect for exactly two purposes:</p>
+        <ul>
+          <li><span class="bullet">—</span><span><strong style="color: var(--text);">Email address:</strong> to deliver your account credentials, billing receipts, and critical security notices (e.g., a password-reset request you initiated).</span></li>
+          <li><span class="bullet">—</span><span><strong style="color: var(--text);">Payment reference:</strong> to verify your subscription status and unlock service access. No other use.</span></li>
+        </ul>
+        <p>We do <strong>not</strong> sell, rent, trade, or share your data with advertisers, data brokers, analytics companies, or any third parties for commercial purposes. Your information is used only to provide you with the service you paid for.</p>
+      </div>
+
+      <hr class="divider" />
+
+      <!-- 5. Third-Party Services -->
+      <div class="policy-section">
+        <h2>5. Third-Party Services</h2>
+        <p>We use a minimal number of third-party providers, each selected for their strong privacy posture. We do not use analytics SDKs, tracking pixels, ad networks, or session-recording tools of any kind.</p>
+        <div class="info-card">
+          <div class="service-row">
+            <span class="service-dot"></span>
+            <span><strong>Stripe</strong> — payment processing. Stripe handles all card data in accordance with PCI DSS Level 1 standards. We receive only a transaction confirmation and a last-4-digits reference. View Stripe's privacy policy at <a href="https://privacy.stripe.com" target="_blank" rel="noopener">privacy.stripe.com</a>.</span>
+          </div>
+          <div class="service-row">
+            <span class="service-dot"></span>
+            <span><strong>Mailgun</strong> — transactional email delivery. Used solely to dispatch account-creation confirmations, billing receipts, and security alerts. Mailgun does not receive any VPN usage data.</span>
+          </div>
+        </div>
+      </div>
+
+      <hr class="divider" />
+
+      <!-- 6. Cookies -->
+      <div class="policy-section">
+        <h2>6. Cookies</h2>
+        <p>We use only the cookies strictly necessary for your account session to function. Specifically, a single encrypted session cookie is set when you log in to the GearsVPN dashboard; it is deleted when you log out or your session expires.</p>
+        <p>We do <strong>not</strong> use:</p>
+        <ul>
+          <li><span class="bullet">—</span><span>Tracking or analytics cookies</span></li>
+          <li><span class="bullet">—</span><span>Third-party advertising cookies</span></li>
+          <li><span class="bullet">—</span><span>Persistent fingerprinting cookies</span></li>
+          <li><span class="bullet">—</span><span>Any cookies served by ad networks or marketing platforms</span></li>
+        </ul>
+        <p>Because we don't use non-essential cookies, you will not see a cookie-consent banner on our site.</p>
+      </div>
+
+      <hr class="divider" />
+
+      <!-- 7. Data Security -->
+      <div class="policy-section">
+        <h2>7. Data Security</h2>
+        <p>We apply industry-standard and beyond-standard security practices to protect the limited data we do hold:</p>
+        <div class="info-card">
+          <div class="service-row">
+            <span class="service-dot"></span>
+            <span>All data in transit is encrypted via <strong>TLS 1.3</strong> — older, weaker cipher suites are explicitly disabled.</span>
+          </div>
+          <div class="service-row">
+            <span class="service-dot"></span>
+            <span>Account passwords are hashed using <strong>bcrypt</strong> with a cost factor appropriate for current hardware — we never store plaintext or reversibly-encrypted passwords.</span>
+          </div>
+          <div class="service-row">
+            <span class="service-dot"></span>
+            <span>Our database is <strong>encrypted at rest</strong> using AES-256, with keys managed separately from the data store.</span>
+          </div>
+          <div class="service-row">
+            <span class="service-dot"></span>
+            <span>We commission <strong>regular third-party security audits</strong> and penetration tests. Results and remediation timelines are reviewed by our engineering team upon receipt.</span>
+          </div>
+        </div>
+        <p>Despite these measures, no system is perfectly immune. If we become aware of a breach affecting your personal data, we will notify you by email within 72 hours of discovery, in line with GDPR Article 34 requirements.</p>
+      </div>
+
+      <hr class="divider" />
+
+      <!-- 8. Your Rights -->
+      <div class="policy-section">
+        <h2>8. Your Rights</h2>
+        <p>Whether you are located in the European Economic Area (GDPR) or California (CCPA), you have the following rights regarding your personal data:</p>
+        <ul>
+          <li><span class="bullet">—</span><span><strong style="color: var(--text);">Right to access:</strong> request a copy of the personal data we hold about you.</span></li>
+          <li><span class="bullet">—</span><span><strong style="color: var(--text);">Right to rectification:</strong> ask us to correct any inaccurate data.</span></li>
+          <li><span class="bullet">—</span><span><strong style="color: var(--text);">Right to erasure:</strong> request deletion of all personal data associated with your account.</span></li>
+          <li><span class="bullet">—</span><span><strong style="color: var(--text);">Right to portability:</strong> receive your data in a structured, machine-readable format.</span></li>
+          <li><span class="bullet">—</span><span><strong style="color: var(--text);">Right to object:</strong> object to any processing you believe is not justified.</span></li>
+        </ul>
+        <p>To exercise any of these rights, email us at <span class="highlight-email">privacy@gearsvpn.com</span>. We respond to all requests within <strong>30 days</strong> of receipt.</p>
+        <p>You may also <strong>delete your account at any time</strong> directly from your dashboard. Doing so immediately triggers a purge of all personal data associated with your account within <strong>48 hours</strong>.</p>
+      </div>
+
+      <hr class="divider" />
+
+      <!-- 9. Data Retention -->
+      <div class="policy-section">
+        <h2>9. Data Retention</h2>
+        <p>We retain your data only as long as necessary:</p>
+        <ul>
+          <li><span class="bullet">—</span><span><strong style="color: var(--text);">Account data</strong> (email address) is retained while your subscription is active and deleted within 48 hours of account deletion or subscription termination.</span></li>
+          <li><span class="bullet">—</span><span><strong style="color: var(--text);">Payment references</strong> (last-4-digit card references and transaction IDs) are retained for 7 years to satisfy tax compliance and accounting obligations. This data is stored on Stripe's infrastructure — not on our servers — and is the minimum required under applicable financial regulations.</span></li>
+        </ul>
+        <p>We do not retain any data beyond these windows. There are no "soft deletes" that keep your information in hidden archives after you leave.</p>
+      </div>
+
+      <hr class="divider" />
+
+      <!-- 10. Contact -->
+      <div class="policy-section">
+        <h2>10. Contact</h2>
+        <p>If you have questions about this policy, wish to exercise your privacy rights, or have a concern about how your data is handled, please contact us:</p>
+        <div class="info-card">
+          <p><strong>Email:</strong> <span class="highlight-email">privacy@gearsvpn.com</span></p>
+          <p><strong>Postal address:</strong><br />
+          GearsVPN Ltd.<br />
+          27 Innovation Way<br />
+          London, EC1A 1BB<br />
+          United Kingdom</p>
+          <p>We aim to respond to all privacy inquiries within 30 days. For urgent matters relating to account security, please mark your email subject line with <strong>[URGENT]</strong>.</p>
+        </div>
+      </div>
+
+    </div><!-- /.content-inner -->
+  </main>
+
+  <!-- ═══════════════════════════════════════════════ FOOTER -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-columns">
+
+        <!-- Brand -->
+        <div class="footer-brand">
+          <div class="footer-logo">⚙️ Gears<em>VPN</em></div>
+          <p class="footer-tagline">A fast, no-logs VPN for people who'd rather keep their business their own.</p>
+        </div>
+
+        <!-- Product -->
+        <div class="footer-col">
+          <h4>Product</h4>
+          <ul>
+            <li><a href="index.html#features">Features</a></li>
+            <li><a href="index.html#network">Network</a></li>
+            <li><a href="index.html#apps">Apps</a></li>
+            <li><a href="index.html#pricing">Pricing</a></li>
+          </ul>
+        </div>
+
+        <!-- Company -->
+        <div class="footer-col">
+          <h4>Company</h4>
+          <ul>
+            <li><a href="index.html#how-it-works">How it works</a></li>
+            <li><a href="index.html#faq">FAQ</a></li>
+            <li><a href="index.html#pricing">Get started</a></li>
+          </ul>
+        </div>
+
+        <!-- Legal -->
+        <div class="footer-col">
+          <h4>Legal</h4>
+          <ul>
+            <li><a href="terms.html">Terms</a></li>
+            <li><a href="privacy.html">Privacy</a></li>
+            <li><a href="refund.html">Refund</a></li>
+            <li><a href="nologs.html">No-logs Policy</a></li>
+          </ul>
+        </div>
+
+      </div><!-- /.footer-columns -->
+
+      <div class="footer-bottom">
+        <span class="footer-bottom-copy">© 2026 GearsVPN · All rights reserved.</span>
+        <div class="footer-bottom-links">
+          <a href="terms.html">Terms</a>
+          <a href="privacy.html">Privacy</a>
+          <a href="refund.html">Refunds</a>
+          <a href="index.html#pricing">Pricing</a>
+        </div>
+      </div>
+
+    </div><!-- /.footer-inner -->
+  </footer>
+
+</body>
+</html>

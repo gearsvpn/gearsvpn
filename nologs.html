@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>No-Logs Policy — GearsVPN</title>
+  <style>
+    :root {
+      --primary: #e11d48;
+      --primary-dark: #be123c;
+      --bg: #0a0a0a;
+      --bg2: #111111;
+      --card: #1a1a1a;
+      --border: #2a2a2a;
+      --text: #f5f5f5;
+      --muted: #888;
+      --success: #22c55e;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      line-height: 1.7;
+      font-size: 16px;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    /* NAV */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--bg2);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      gap: 40px;
+    }
+
+    .logo {
+      font-size: 1.2rem;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      white-space: nowrap;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .logo em {
+      font-style: normal;
+      font-weight: 700;
+      color: var(--primary);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      flex: 1;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--muted);
+      font-size: 0.9rem;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--text); }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      white-space: nowrap;
+    }
+
+    .nav-right .signin {
+      color: var(--muted);
+      font-size: 0.9rem;
+      transition: color 0.2s;
+    }
+
+    .nav-right .signin:hover { color: var(--text); }
+
+    .btn-red {
+      background: var(--primary);
+      color: #fff;
+      font-weight: 600;
+      font-size: 0.875rem;
+      padding: 9px 20px;
+      border-radius: 6px;
+      border: none;
+      cursor: pointer;
+      display: inline-block;
+      transition: background 0.2s;
+    }
+
+    .btn-red:hover { background: var(--primary-dark); }
+
+    /* HERO */
+    .hero {
+      position: relative;
+      padding: 100px 24px 80px;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 70% 60% at 50% 0%, rgba(225,29,72,0.18) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero::after {
+      content: '\2715';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -45%);
+      font-size: 420px;
+      font-weight: 900;
+      color: rgba(225,29,72,0.04);
+      pointer-events: none;
+      line-height: 1;
+      user-select: none;
+    }
+
+    .hero-inner {
+      position: relative;
+      z-index: 1;
+      max-width: 720px;
+      margin: 0 auto;
+    }
+
+    .hero-label {
+      display: inline-block;
+      background: rgba(225,29,72,0.15);
+      border: 1px solid var(--primary);
+      color: var(--primary);
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 5px 14px;
+      border-radius: 20px;
+      margin-bottom: 24px;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.6rem, 6vw, 4rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+      margin-bottom: 20px;
+    }
+
+    .hero h1 span { color: var(--primary); }
+
+    .hero-subtitle {
+      font-size: 1.125rem;
+      color: var(--muted);
+      max-width: 580px;
+      margin: 0 auto 18px;
+      line-height: 1.65;
+    }
+
+    .hero-date {
+      font-size: 0.82rem;
+      color: var(--muted);
+      opacity: 0.7;
+    }
+
+    /* NEVER LOG GRID */
+    .never-log-section {
+      background: var(--bg2);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 64px 24px;
+    }
+
+    .never-log-inner {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .never-log-title {
+      text-align: center;
+      font-size: 1.6rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+      letter-spacing: -0.02em;
+    }
+
+    .never-log-subtitle {
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.95rem;
+      margin-bottom: 40px;
+    }
+
+    .never-log-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    @media (max-width: 640px) {
+      .never-log-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 400px) {
+      .never-log-grid { grid-template-columns: 1fr; }
+    }
+
+    .never-log-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 24px 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 12px;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+
+    .never-log-card:hover {
+      border-color: rgba(225,29,72,0.4);
+      transform: translateY(-2px);
+    }
+
+    .never-log-x {
+      font-size: 2rem;
+      font-weight: 900;
+      color: var(--primary);
+      line-height: 1;
+    }
+
+    .never-log-label {
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--text);
+      letter-spacing: 0.01em;
+    }
+
+    /* CONTENT */
+    .content-wrap {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 72px 24px 96px;
+    }
+
+    .policy-section { margin-bottom: 56px; }
+
+    .policy-section h2 {
+      font-size: 1.35rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 18px;
+      padding-left: 16px;
+      border-left: 4px solid var(--primary);
+      line-height: 1.3;
+    }
+
+    .policy-section p {
+      color: #ccc;
+      margin-bottom: 14px;
+      font-size: 0.975rem;
+    }
+
+    .policy-section p:last-child { margin-bottom: 0; }
+
+    .policy-section ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .policy-section ul li {
+      display: flex;
+      gap: 12px;
+      color: #ccc;
+      font-size: 0.975rem;
+      align-items: flex-start;
+    }
+
+    .policy-section ul li::before {
+      content: '\2715';
+      color: var(--primary);
+      font-weight: 700;
+      font-size: 0.85rem;
+      flex-shrink: 0;
+      margin-top: 3px;
+    }
+
+    .tech-block {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 20px 22px;
+      margin-bottom: 16px;
+    }
+
+    .tech-block:last-child { margin-bottom: 0; }
+
+    .tech-block h3 {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 8px;
+      letter-spacing: 0.01em;
+    }
+
+    .tech-block p { color: #ccc; margin-bottom: 0; font-size: 0.975rem; }
+
+    .do-keep-list {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 20px 22px;
+    }
+
+    .do-keep-list ul { gap: 8px; }
+
+    .do-keep-list ul li::before {
+      content: '\00B7';
+      color: var(--success);
+      font-weight: 900;
+      font-size: 1.4rem;
+      line-height: 1.1;
+    }
+
+    .contact-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 24px 22px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .contact-icon { font-size: 1.6rem; flex-shrink: 0; }
+
+    .contact-card a {
+      color: var(--primary);
+      font-weight: 600;
+      transition: color 0.2s;
+    }
+
+    .contact-card a:hover { color: var(--primary-dark); }
+
+    .section-divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 0 0 56px;
+    }
+
+    /* FOOTER */
+    footer {
+      background: var(--bg2);
+      border-top: 1px solid var(--border);
+      padding: 60px 24px 0;
+    }
+
+    .footer-inner { max-width: 1200px; margin: 0 auto; }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 40px;
+      padding-bottom: 48px;
+    }
+
+    @media (max-width: 768px) {
+      .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
+      .footer-brand { grid-column: 1 / -1; }
+    }
+
+    @media (max-width: 480px) {
+      .footer-grid { grid-template-columns: 1fr; }
+      .footer-brand { grid-column: auto; }
+    }
+
+    .footer-brand .logo { margin-bottom: 14px; }
+
+    .footer-brand p {
+      color: var(--muted);
+      font-size: 0.875rem;
+      max-width: 280px;
+      line-height: 1.6;
+    }
+
+    .footer-col h4 {
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+      margin-bottom: 16px;
+    }
+
+    .footer-col ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .footer-col ul li a {
+      color: #aaa;
+      font-size: 0.875rem;
+      transition: color 0.2s;
+    }
+
+    .footer-col ul li a:hover { color: var(--text); }
+    .footer-col ul li a.active-page { color: var(--primary); }
+
+    .footer-bottom {
+      border-top: 1px solid var(--border);
+      padding: 20px 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .footer-bottom p { font-size: 0.8rem; color: var(--muted); }
+
+    .footer-bottom-links {
+      display: flex;
+      gap: 20px;
+      list-style: none;
+    }
+
+    .footer-bottom-links a {
+      font-size: 0.8rem;
+      color: var(--muted);
+      transition: color 0.2s;
+    }
+
+    .footer-bottom-links a:hover { color: var(--text); }
+
+    @media (max-width: 860px) { .nav-links { display: none; } }
+    @media (max-width: 480px) { .nav-inner { gap: 12px; } }
+  </style>
+</head>
+<body>
+
+  <!-- NAVIGATION -->
+  <nav>
+    <div class="nav-inner">
+      <a href="index.html" class="logo">&#9881;&#65039; Gears<em>VPN</em></a>
+      <ul class="nav-links">
+        <li><a href="index.html#features">Features</a></li>
+        <li><a href="index.html#network">Network</a></li>
+        <li><a href="index.html#apps">Apps</a></li>
+        <li><a href="index.html#pricing">Pricing</a></li>
+        <li><a href="index.html#faq">FAQ</a></li>
+      </ul>
+      <div class="nav-right">
+        <a href="login.html" class="signin">Sign in</a>
+        <a href="index.html#pricing" class="btn-red">Get GearsVPN</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-inner">
+      <span class="hero-label">Trust &amp; Transparency</span>
+      <h1>No-Logs <span>Policy</span></h1>
+      <p class="hero-subtitle">We don&rsquo;t watch, record, or sell what you do online. Here&rsquo;s why that&rsquo;s technically true, not just a marketing claim.</p>
+      <p class="hero-date">Last updated: July 1, 2026</p>
+    </div>
+  </section>
+
+  <!-- WHAT WE NEVER LOG GRID -->
+  <section class="never-log-section">
+    <div class="never-log-inner">
+      <h2 class="never-log-title">What We Never Log</h2>
+      <p class="never-log-subtitle">These data points do not exist on our servers &mdash; not in databases, not in files, not anywhere.</p>
+      <div class="never-log-grid">
+        <div class="never-log-card">
+          <div class="never-log-x">&#10005;</div>
+          <div class="never-log-label">Your IP Address</div>
+        </div>
+        <div class="never-log-card">
+          <div class="never-log-x">&#10005;</div>
+          <div class="never-log-label">DNS Queries</div>
+        </div>
+        <div class="never-log-card">
+          <div class="never-log-x">&#10005;</div>
+          <div class="never-log-label">Websites Visited</div>
+        </div>
+        <div class="never-log-card">
+          <div class="never-log-x">&#10005;</div>
+          <div class="never-log-label">Connection Timestamps</div>
+        </div>
+        <div class="never-log-card">
+          <div class="never-log-x">&#10005;</div>
+          <div class="never-log-label">Session Duration</div>
+        </div>
+        <div class="never-log-card">
+          <div class="never-log-x">&#10005;</div>
+          <div class="never-log-label">Bandwidth Usage</div>
+        </div>
+        <div class="never-log-card">
+          <div class="never-log-x">&#10005;</div>
+          <div class="never-log-label">Browsing History</div>
+        </div>
+        <div class="never-log-card">
+          <div class="never-log-x">&#10005;</div>
+          <div class="never-log-label">Traffic Contents</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MAIN CONTENT -->
+  <div class="content-wrap">
+
+    <!-- 1. Our Commitment -->
+    <div class="policy-section">
+      <h2>1. Our Commitment</h2>
+      <p>GearsVPN was built on a single non-negotiable principle: your online activity belongs to you. We do not collect, store, or process any information about what you do while connected to our VPN. This is not a policy we can be pressured to violate &mdash; it is enforced at the architecture level.</p>
+      <p>This document explains exactly what we log, what we don&rsquo;t, and why our architecture makes it technically impossible for us to hand over connection data even if ordered to do so. We believe privacy should be verifiable, not just promised.</p>
+    </div>
+
+    <hr class="section-divider" />
+
+    <!-- 2. What Is NOT Logged -->
+    <div class="policy-section">
+      <h2>2. What Is NOT Logged</h2>
+      <p>When you connect to GearsVPN, the following data is never collected, stored, or transmitted to any system under our control:</p>
+      <ul>
+        <li><strong>Your originating IP address</strong> &mdash; we cannot identify which real-world user connected at any time.</li>
+        <li><strong>DNS queries</strong> &mdash; name lookups performed through our servers are not stored. We operate our own encrypted DNS resolvers with no query logging.</li>
+        <li><strong>Websites and services you access</strong> &mdash; we see no destination IPs, hostnames, or URLs. Routing decisions are made in-memory and immediately discarded.</li>
+        <li><strong>Traffic contents</strong> &mdash; we do not perform deep packet inspection or content analysis of any kind.</li>
+        <li><strong>Connection timestamps</strong> &mdash; we do not record when you connected or disconnected from any server.</li>
+        <li><strong>Session duration or bandwidth per user</strong> &mdash; aggregate network statistics are kept for capacity planning, never attributed to individual users or accounts.</li>
+        <li><strong>Device identifiers</strong> &mdash; no MAC address, device fingerprint, or user-agent string is logged at the VPN layer.</li>
+      </ul>
+    </div>
+
+    <hr class="section-divider" />
+
+    <!-- 3. Technical Architecture -->
+    <div class="policy-section">
+      <h2>3. Technical Architecture</h2>
+      <p>Our no-logs commitment is backed by deliberate infrastructure decisions &mdash; not just configuration choices that could be reversed.</p>
+
+      <div class="tech-block">
+        <h3>WireGuard Protocol</h3>
+        <p>GearsVPN uses WireGuard, a modern, audited VPN protocol. WireGuard&rsquo;s kernel-level implementation never writes session data to disk by design. Peer configurations are loaded into memory only and contain no user-identifying information &mdash; only ephemeral public keys that rotate on each connection.</p>
+      </div>
+
+      <div class="tech-block">
+        <h3>VLESS Protocol (Selected Regions)</h3>
+        <p>Our VLESS implementation runs on XTLS-Reality, which further obfuscates traffic to appear as standard HTTPS. The proxy layer logs nothing &mdash; connection state exists only in RAM during an active session and is wiped on disconnect. This makes traffic indistinguishable from ordinary web browsing at the network level.</p>
+      </div>
+
+      <div class="tech-block">
+        <h3>RAM-Only Servers</h3>
+        <p>In our premium server locations, we operate diskless nodes where the operating system runs entirely from RAM. There is no storage medium to subpoena, image, or seize. On reboot &mdash; planned or forced &mdash; all server state is gone permanently. No logs survive a power cycle because no logs are ever written.</p>
+      </div>
+    </div>
+
+    <hr class="section-divider" />
+
+    <!-- 4. Legal Requests -->
+    <div class="policy-section">
+      <h2>4. What Happens Under a Legal Request</h2>
+      <p>Because we store no connection logs, we have nothing to provide in response to a subpoena or data request. There is no database to query, no log files to retrieve, no archive to search.</p>
+      <p>In the event of a legal request, we respond with a technical declaration that no responsive records exist. We do not speculate, guess, or attempt to reconstruct data we never stored. We have never produced connection logs in response to any legal demand because such logs do not exist.</p>
+      <p>We publish transparency reports annually disclosing aggregate request counts &mdash; the number of requests received, their jurisdiction of origin, and what (if anything) was provided. We will notify users of requests to the extent permitted by applicable law.</p>
+    </div>
+
+    <hr class="section-divider" />
+
+    <!-- 5. Third-Party Audits -->
+    <div class="policy-section">
+      <h2>5. Third-Party Audits</h2>
+      <p>We commission independent security audits of our no-logs architecture annually. These audits verify that our server configurations, network stack, and application code are consistent with the claims in this policy.</p>
+      <p>Reports are published in summary form on our website. Our infrastructure is audited by [Audit Firm Name] and our applications by [App Audit Firm]. Full audit reports are available to press and independent researchers upon request &mdash; we do not require NDA for summary disclosure.</p>
+      <p>We welcome scrutiny. If you are a security researcher and believe our no-logs claims are inconsistent with our technical implementation, please contact us at <a href="mailto:security@gearsvpn.com" style="color: var(--primary);">security@gearsvpn.com</a>.</p>
+    </div>
+
+    <hr class="section-divider" />
+
+    <!-- 6. What We DO Keep -->
+    <div class="policy-section">
+      <h2>6. What We DO Keep</h2>
+      <p>To operate our service and support your account, we retain a small amount of non-connection data on isolated systems that have no link to VPN infrastructure:</p>
+      <div class="do-keep-list">
+        <ul>
+          <li>Your <strong>email address</strong> &mdash; for account management, login, and service communications only.</li>
+          <li>A <strong>payment transaction reference</strong> &mdash; provided by Stripe. We do not store full card numbers or billing addresses.</li>
+          <li><strong>Subscription status and expiry date</strong> &mdash; to validate active subscriptions when you authenticate to our apps.</li>
+        </ul>
+      </div>
+      <p style="margin-top: 16px; color: #ccc; font-size: 0.975rem;">These records are stored on separate, firewalled systems. Knowing your subscription status tells us nothing about how you used the VPN &mdash; because the VPN layer never recorded anything to correlate against.</p>
+    </div>
+
+    <hr class="section-divider" />
+
+    <!-- 7. Jurisdiction -->
+    <div class="policy-section">
+      <h2>7. Jurisdiction</h2>
+      <p>GearsVPN Ltd. is incorporated in the United Kingdom. The UK does not currently mandate VPN providers to retain user connection logs under any applicable statute. We would challenge any such mandate in court before complying.</p>
+      <p>Our VPN server infrastructure is distributed globally. Servers operate under the laws of their respective jurisdictions; our RAM-only architecture ensures that even if a server were seized, there would be no user data to recover.</p>
+    </div>
+
+    <hr class="section-divider" />
+
+    <!-- 8. Contact -->
+    <div class="policy-section">
+      <h2>8. Contact</h2>
+      <p style="margin-bottom: 16px; color: #ccc; font-size: 0.975rem;">For questions about this policy, privacy concerns, or data subject requests:</p>
+      <div class="contact-card">
+        <div class="contact-icon">&#9993;</div>
+        <div>
+          <div style="font-weight: 600; margin-bottom: 4px;">Privacy Team</div>
+          <a href="mailto:privacy@gearsvpn.com">privacy@gearsvpn.com</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="logo">&#9881;&#65039; Gears<em>VPN</em></div>
+          <p>A fast, no-logs VPN for people who&rsquo;d rather keep their business their own.</p>
+        </div>
+
+        <div class="footer-col">
+          <h4>Product</h4>
+          <ul>
+            <li><a href="index.html#features">Features</a></li>
+            <li><a href="index.html#network">Network</a></li>
+            <li><a href="index.html#apps">Apps</a></li>
+            <li><a href="index.html#pricing">Pricing</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Company</h4>
+          <ul>
+            <li><a href="index.html#how-it-works">How it works</a></li>
+            <li><a href="index.html#faq">FAQ</a></li>
+            <li><a href="index.html#pricing">Get started</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Legal</h4>
+          <ul>
+            <li><a href="terms.html">Terms</a></li>
+            <li><a href="privacy.html">Privacy</a></li>
+            <li><a href="refund.html">Refund</a></li>
+            <li><a href="nologs.html" class="active-page">No-logs Policy</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>&copy; 2026 GearsVPN &nbsp;&middot;&nbsp; All rights reserved.</p>
+        <ul class="footer-bottom-links">
+          <li><a href="terms.html">Terms</a></li>
+          <li><a href="privacy.html">Privacy</a></li>
+          <li><a href="refund.html">Refunds</a></li>
+          <li><a href="index.html#pricing">Pricing</a></li>
+        </ul>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

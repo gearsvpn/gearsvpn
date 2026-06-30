@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GearsVPN — Privacy That Never Slips</title>
+<style>
+:root{
+  --primary:#f01d4f;
+  --primary-dark:#c8143a;
+  --primary-glow:rgba(240,29,79,.22);
+  --bg:#080808;
+  --bg2:#0f0f0f;
+  --card:#181818;
+  --border:#2a2a2a;
+  --text:#ffffff;
+  --muted:#888;
+  --success:#22c55e;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:"Segoe UI",system-ui,sans-serif;line-height:1.6;}
+
+/* NAV */
+nav{position:sticky;top:0;z-index:50;background:rgba(10,10,10,.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:.9rem 2rem;display:flex;align-items:center;justify-content:space-between;}
+.logo{font-size:1.15rem;font-weight:900;color:var(--text);text-decoration:none;display:flex;align-items:center;gap:.4rem;}
+.logo .gear{color:var(--primary);font-size:1.3rem;}
+.logo em{color:var(--primary);font-style:normal;}
+.nav-links{display:flex;align-items:center;gap:1.75rem;}
+.nav-links a{color:var(--muted);text-decoration:none;font-size:.88rem;transition:color .2s;}
+.nav-links a:hover{color:var(--text);}
+.nav-cta{display:flex;align-items:center;gap:1rem;}
+.btn-ghost{color:var(--muted);text-decoration:none;font-size:.88rem;transition:color .2s;}
+.btn-ghost:hover{color:var(--text);}
+.btn-red{background:var(--primary);color:#fff;padding:.5rem 1.1rem;border-radius:7px;text-decoration:none;font-size:.88rem;font-weight:700;transition:background .2s;}
+.btn-red:hover{background:var(--primary-dark);}
+@media(max-width:768px){.nav-links{display:none;}}
+
+/* HERO */
+.hero{text-align:center;padding:6rem 1.5rem 5rem;position:relative;overflow:hidden;}
+.hero::before{content:"";position:absolute;top:-80px;left:50%;transform:translateX(-50%);width:600px;height:600px;background:radial-gradient(circle,rgba(225,29,72,.12) 0%,transparent 70%);pointer-events:none;}
+.hero-badge{display:inline-flex;align-items:center;gap:.5rem;background:rgba(225,29,72,.1);border:1px solid rgba(225,29,72,.25);color:var(--primary);font-size:.75rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:.35rem .9rem;border-radius:999px;margin-bottom:1.75rem;}
+.hero h1{font-size:clamp(2.8rem,7vw,5rem);font-weight:900;line-height:1.05;margin-bottom:1.25rem;letter-spacing:-.03em;text-shadow:0 0 60px rgba(240,29,79,.15);}
+.hero h1 span{color:var(--primary);}
+.hero p{font-size:1.1rem;color:var(--muted);max-width:580px;margin:0 auto 2.25rem;line-height:1.7;}
+.hero-btns{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;}
+.btn-primary-lg{background:var(--primary);color:#fff;padding:.85rem 2rem;border-radius:9px;text-decoration:none;font-size:1rem;font-weight:700;transition:background .2s,transform .15s;display:inline-block;}
+.btn-primary-lg:hover{background:var(--primary-dark);transform:translateY(-1px);}
+.btn-outline-lg{border:1px solid var(--border);color:var(--text);padding:.85rem 2rem;border-radius:9px;text-decoration:none;font-size:1rem;font-weight:600;transition:border-color .2s;display:inline-block;}
+.btn-outline-lg:hover{border-color:var(--muted);}
+.hero-trust{display:flex;gap:1.5rem;justify-content:center;flex-wrap:wrap;margin-top:2.5rem;}
+.trust-chip{font-size:.8rem;color:var(--muted);display:flex;align-items:center;gap:.4rem;}
+.trust-chip span{color:var(--success);}
+
+/* STATS */
+.stats{display:flex;justify-content:center;gap:0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);background:var(--bg2);}
+.stat{flex:1;max-width:180px;text-align:center;padding:2rem 1rem;border-right:1px solid var(--border);}
+.stat:last-child{border-right:none;}
+.stat .num{font-size:2.2rem;font-weight:900;color:var(--primary);}
+.stat .lbl{font-size:.78rem;color:var(--muted);margin-top:.25rem;}
+@media(max-width:600px){.stats{flex-wrap:wrap;}.stat{min-width:50%;border-right:none;border-bottom:1px solid var(--border);}}
+
+/* TECH BAR */
+.tech-bar{text-align:center;padding:1.25rem;border-bottom:1px solid var(--border);font-size:.78rem;color:var(--muted);}
+.tech-bar strong{color:var(--text);}
+.tech-bar span{margin:0 .5rem;color:var(--border);}
+
+/* SECTIONS */
+section{padding:5rem 1.5rem;}
+.section-label{font-size:.72rem;text-transform:uppercase;letter-spacing:.12em;color:var(--primary);font-weight:700;margin-bottom:.75rem;}
+.section-title{font-size:clamp(1.8rem,4vw,2.8rem);font-weight:900;line-height:1.1;margin-bottom:1rem;letter-spacing:-.025em;}
+.section-sub{color:var(--muted);font-size:1rem;max-width:540px;line-height:1.7;}
+.container{max-width:1100px;margin:0 auto;}
+
+/* FEATURES */
+.features-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.25rem;margin-top:3rem;}
+.feature-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:1.75rem;transition:border-color .2s;}
+.feature-card:hover{border-color:var(--primary);}
+.feature-icon{font-size:1.6rem;margin-bottom:1rem;}
+.feature-card h3{font-size:1rem;font-weight:700;margin-bottom:.5rem;}
+.feature-card p{font-size:.86rem;color:var(--muted);line-height:1.65;}
+
+/* NETWORK */
+.network-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:.75rem;margin-top:2.5rem;}
+.country-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:.9rem 1rem;display:flex;align-items:center;gap:.65rem;font-size:.88rem;font-weight:600;transition:border-color .2s;}
+.country-card:hover{border-color:var(--primary);}
+.country-card .flag{font-size:1.25rem;}
+
+/* HOW IT WORKS */
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1.5rem;margin-top:3rem;}
+.step{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:1.75rem;}
+.step-num{width:36px;height:36px;background:var(--primary);color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:.9rem;margin-bottom:1rem;}
+.step h3{font-size:1rem;font-weight:700;margin-bottom:.5rem;}
+.step p{font-size:.86rem;color:var(--muted);line-height:1.65;}
+
+/* APPS */
+.apps-grid{display:flex;flex-wrap:wrap;gap:1rem;margin-top:2.5rem;}
+.app-chip{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:.75rem 1.25rem;font-size:.88rem;font-weight:600;display:flex;align-items:center;gap:.6rem;}
+.app-chip .icon{font-size:1.3rem;}
+
+/* PRICING */
+.pricing-toggle{display:flex;align-items:center;gap:.5rem;margin:2rem 0 2.5rem;flex-wrap:wrap;}
+.toggle-btn{padding:.4rem 1rem;border-radius:6px;border:1px solid var(--border);background:transparent;color:var(--muted);cursor:pointer;font-size:.82rem;transition:all .2s;}
+.toggle-btn.active{background:var(--primary);color:#fff;border-color:var(--primary);font-weight:700;}
+.save-badge{background:rgba(225,29,72,.15);color:var(--primary);font-size:.72rem;font-weight:700;padding:.2rem .55rem;border-radius:4px;letter-spacing:.04em;}
+.plans-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.25rem;}
+.plan-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:2rem;position:relative;transition:border-color .2s;}
+.plan-card.featured{border-color:var(--primary);background:linear-gradient(160deg,#1a1a1a 0%,#1f0a0e 100%);}
+.plan-badge{position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:var(--primary);color:#fff;font-size:.7rem;font-weight:700;padding:.25rem .75rem;border-radius:999px;white-space:nowrap;letter-spacing:.05em;}
+.plan-name{font-size:1rem;font-weight:700;margin-bottom:.35rem;}
+.plan-desc{font-size:.82rem;color:var(--muted);margin-bottom:1.25rem;line-height:1.5;}
+.plan-price{display:flex;align-items:flex-end;gap:.2rem;margin-bottom:.35rem;}
+.plan-price .dollar{font-size:1.1rem;font-weight:700;color:var(--muted);align-self:flex-start;margin-top:.5rem;}
+.plan-price .amount{font-size:3rem;font-weight:900;line-height:1;}
+.plan-price .per{font-size:.82rem;color:var(--muted);margin-bottom:.3rem;}
+.plan-billing{font-size:.78rem;color:var(--muted);margin-bottom:1.5rem;}
+.plan-btn{display:block;width:100%;padding:.75rem;border-radius:9px;font-size:.92rem;font-weight:700;text-align:center;text-decoration:none;border:none;cursor:pointer;transition:all .2s;margin-bottom:1.5rem;}
+.plan-btn.red{background:var(--primary);color:#fff;}
+.plan-btn.red:hover{background:var(--primary-dark);}
+.plan-btn.outline{background:transparent;border:1px solid var(--border);color:var(--text);}
+.plan-btn.outline:hover{border-color:var(--muted);}
+.plan-features{list-style:none;}
+.plan-features li{font-size:.84rem;color:var(--muted);padding:.35rem 0;display:flex;align-items:center;gap:.6rem;border-bottom:1px solid var(--border);}
+.plan-features li:last-child{border-bottom:none;}
+.plan-features li::before{content:"✓";color:var(--success);font-weight:700;flex-shrink:0;}
+.plan-features li.no::before{content:"✗";color:#444;}
+.plan-features li.no{color:#555;}
+.pricing-trust{display:flex;gap:1.5rem;flex-wrap:wrap;margin-top:2rem;font-size:.8rem;color:var(--muted);}
+.pricing-trust span{display:flex;align-items:center;gap:.4rem;}
+
+/* FAQ */
+.faq-list{margin-top:2.5rem;display:flex;flex-direction:column;gap:.75rem;max-width:720px;}
+.faq-item{background:var(--card);border:1px solid var(--border);border-radius:12px;overflow:hidden;}
+.faq-q{padding:1.1rem 1.25rem;font-size:.92rem;font-weight:600;cursor:pointer;display:flex;justify-content:space-between;align-items:center;user-select:none;}
+.faq-q:hover{color:var(--primary);}
+.faq-icon{color:var(--muted);font-size:1rem;transition:transform .2s;}
+.faq-a{display:none;padding:0 1.25rem 1.1rem;font-size:.86rem;color:var(--muted);line-height:1.7;}
+.faq-item.open .faq-a{display:block;}
+.faq-item.open .faq-icon{transform:rotate(45deg);color:var(--primary);}
+
+/* CTA */
+.cta-section{text-align:center;padding:5rem 1.5rem;background:linear-gradient(160deg,#0a0a0a 0%,#150408 50%,#0a0a0a 100%);border-top:1px solid var(--border);border-bottom:1px solid var(--border);}
+.cta-section h2{font-size:clamp(1.8rem,4vw,2.8rem);font-weight:900;margin-bottom:1rem;letter-spacing:-.02em;}
+.cta-section p{color:var(--muted);margin-bottom:2rem;font-size:1rem;}
+
+/* FOOTER */
+footer{background:var(--bg2);border-top:1px solid var(--border);padding:3rem 1.5rem 2rem;}
+.footer-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:2.5rem;}
+@media(max-width:700px){.footer-inner{grid-template-columns:1fr 1fr;}}
+.footer-brand .logo{margin-bottom:.75rem;display:inline-flex;}
+.footer-brand p{font-size:.82rem;color:var(--muted);line-height:1.6;max-width:220px;}
+.footer-col h4{font-size:.72rem;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);font-weight:700;margin-bottom:.85rem;}
+.footer-col a{display:block;color:var(--muted);text-decoration:none;font-size:.84rem;margin-bottom:.5rem;transition:color .2s;}
+.footer-col a:hover{color:var(--text);}
+.footer-bottom{max-width:1100px;margin:2rem auto 0;padding-top:1.5rem;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;font-size:.78rem;color:var(--muted);}
+.footer-bottom a{color:var(--muted);text-decoration:none;margin-left:1rem;}
+.footer-bottom a:hover{color:var(--text);}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#top" class="logo"><span class="gear">⚙️</span> Gears<em>VPN</em></a>
+  <div class="nav-links">
+    <a href="#features">Features</a>
+    <a href="#network">Network</a>
+    <a href="#apps">Apps</a>
+    <a href="#pricing">Pricing</a>
+    <a href="#faq">FAQ</a>
+  </div>
+  <div class="nav-cta">
+    <a href="login.html" class="btn-ghost">Sign in</a>
+    <a href="#pricing" class="btn-red">Get GearsVPN</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="top">
+  <div class="hero-badge">⚙️ No logs &middot; No identity &middot; No nonsense</div>
+  <h1>Privacy that never<br><span>slips a gear.</span></h1>
+  <p>One simple subscription for a faster, private internet. No activity logs, anonymous email-only signup, and unlimited bandwidth on every plan. Pay with card or crypto.</p>
+  <div class="hero-btns">
+    <a href="#pricing" class="btn-primary-lg">See plans &amp; pricing</a>
+    <a href="#how-it-works" class="btn-outline-lg">How it works &rarr;</a>
+  </div>
+  <div class="hero-trust">
+    <div class="trust-chip"><span>✓</span> 30-day money-back</div>
+    <div class="trust-chip"><span>✓</span> No traffic logs, ever</div>
+    <div class="trust-chip"><span>✓</span> Cancel in one click</div>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats">
+  <div class="stat"><div class="num">15</div><div class="lbl">High-speed servers</div></div>
+  <div class="stat"><div class="num">10</div><div class="lbl">Countries worldwide</div></div>
+  <div class="stat"><div class="num">&infin;</div><div class="lbl">Unlimited bandwidth</div></div>
+  <div class="stat"><div class="num">6</div><div class="lbl">Platforms supported</div></div>
+</div>
+
+<!-- TECH BAR -->
+<div class="tech-bar">
+  Built on <strong>WireGuard&reg;</strong> <span>&middot;</span>
+  <strong>VLESS REALITY</strong> <span>&middot;</span>
+  <strong>AES-256</strong> <span>&middot;</span>
+  <strong>Open-source apps</strong>
+</div>
+
+<!-- FEATURES -->
+<section id="features">
+  <div class="container">
+    <div class="section-label">Why GearsVPN</div>
+    <div class="section-title">Everything you want in a VPN.<br>Nothing you don't.</div>
+    <div class="section-sub">Military-grade encryption, honest privacy, and speed you'll actually notice — without the bloat, trackers, or fine print.</div>
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon">🔒</div>
+        <h3>Strict no-logs</h3>
+        <p>We don't keep traffic, DNS, or connection logs. There's no activity to hand over because we never record it in the first place.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">⚡</div>
+        <h3>WireGuard speed</h3>
+        <p>Next-gen WireGuard and VLESS REALITY protocols give you low-latency, high-throughput connections that hold up for streaming and gaming.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">♾️</div>
+        <h3>Unlimited bandwidth</h3>
+        <p>No speed caps, no data caps, no throttling. Every plan gets the full network at full speed across all of your devices.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">👤</div>
+        <h3>Anonymous signup</h3>
+        <p>Sign up with just an email — no name, no address, no phone number. Want extra distance? Pay in crypto and stay fully pseudonymous.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">💳</div>
+        <h3>Pay your way</h3>
+        <p>Card, and major cryptocurrencies including Bitcoin, Ethereum, and USDT. One charge per term — no surprise add-ons.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">📂</div>
+        <h3>Open-source apps</h3>
+        <p>Our clients are open for anyone to inspect. No hidden trackers, no telemetry — just the code that connects you, out in the open.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- NETWORK -->
+<section id="network" style="background:var(--bg2);border-top:1px solid var(--border);border-bottom:1px solid var(--border);">
+  <div class="container">
+    <div class="section-label">The Network</div>
+    <div class="section-title">15 fast servers across 10 countries</div>
+    <div class="section-sub">A lean, hand-tuned network — every location is high-bandwidth and built for speed, not a vanity count of crowded servers.</div>
+    <div class="network-grid">
+      <div class="country-card"><span class="flag">🇺🇸</span> United States</div>
+      <div class="country-card"><span class="flag">🇨🇦</span> Canada</div>
+      <div class="country-card"><span class="flag">🇬🇧</span> United Kingdom</div>
+      <div class="country-card"><span class="flag">🇩🇪</span> Germany</div>
+      <div class="country-card"><span class="flag">🇳🇱</span> Netherlands</div>
+      <div class="country-card"><span class="flag">🇫🇷</span> France</div>
+      <div class="country-card"><span class="flag">🇨🇭</span> Switzerland</div>
+      <div class="country-card"><span class="flag">🇯🇵</span> Japan</div>
+      <div class="country-card"><span class="flag">🇸🇬</span> Singapore</div>
+      <div class="country-card"><span class="flag">🇦🇺</span> Australia</div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section id="how-it-works">
+  <div class="container">
+    <div class="section-label">Up and running in minutes</div>
+    <div class="section-title">How GearsVPN works</div>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <h3>Pick a plan</h3>
+        <p>Choose Starter, Plus, or VIP and check out with card or crypto. Your account is ready the instant payment clears.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <h3>Install the app</h3>
+        <p>Download the GearsVPN app for your device — iOS, Android, macOS, Windows, Linux, or your router — and sign in with your email.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <h3>Connect &amp; relax</h3>
+        <p>Tap connect. Your traffic is encrypted, your IP is hidden, and you're browsing privately at full speed. That's it.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- APPS -->
+<section id="apps" style="background:var(--bg2);border-top:1px solid var(--border);border-bottom:1px solid var(--border);">
+  <div class="container">
+    <div class="section-label">One account, every device</div>
+    <div class="section-title">Apps for everything you own</div>
+    <div class="section-sub">Connect all your devices on a single subscription. Native, open-source clients for every major platform.</div>
+    <div class="apps-grid">
+      <div class="app-chip"><span class="icon">📱</span> iOS</div>
+      <div class="app-chip"><span class="icon">🤖</span> Android</div>
+      <div class="app-chip"><span class="icon">🍎</span> macOS</div>
+      <div class="app-chip"><span class="icon">🪟</span> Windows</div>
+      <div class="app-chip"><span class="icon">🐧</span> Linux</div>
+      <div class="app-chip"><span class="icon">📡</span> Routers</div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section id="pricing">
+  <div class="container">
+    <div class="section-label">Simple, honest pricing</div>
+    <div class="section-title">Pick your plan</div>
+    <div class="section-sub">One subscription, every feature. The longer the term, the more you save — up to 60% versus monthly.</div>
+    <div class="pricing-toggle">
+      <button class="toggle-btn active" onclick="setBilling('monthly',this)">Monthly</button>
+      <button class="toggle-btn" onclick="setBilling('quarterly',this)">3-Month</button>
+      <button class="toggle-btn" onclick="setBilling('biannual',this)">6-Month</button>
+      <button class="toggle-btn" onclick="setBilling('annual',this)">Annual</button>
+      <span class="save-badge">SAVE UP TO 60%</span>
+    </div>
+    <div class="plans-grid">
+      <!-- STARTER -->
+      <div class="plan-card">
+        <div class="plan-name">Starter</div>
+        <div class="plan-desc">Private, fast browsing on up to 3 devices — the essentials done right.</div>
+        <div class="plan-price">
+          <span class="dollar">$</span>
+          <span class="amount" id="price-starter">15</span>
+          <span class="per">/month</span>
+        </div>
+        <div class="plan-billing" id="billing-starter">Billed monthly</div>
+        <a href="#" class="plan-btn outline" id="link-starter">Get Started</a>
+        <ul class="plan-features">
+          <li>Up to 3 devices</li>
+          <li>All 15 servers, 10 countries</li>
+          <li>Unlimited bandwidth &amp; speed</li>
+          <li>WireGuard &amp; strict no-logs</li>
+          <li>Kill-switch + DNS leak protection</li>
+          <li class="no">VLESS REALITY obfuscation</li>
+          <li class="no">Dedicated streaming servers</li>
+        </ul>
+      </div>
+      <!-- PLUS -->
+      <div class="plan-card featured">
+        <div class="plan-badge">MOST POPULAR</div>
+        <div class="plan-name">Plus</div>
+        <div class="plan-desc">More devices, obfuscation and streaming-tuned servers for the whole household.</div>
+        <div class="plan-price">
+          <span class="dollar">$</span>
+          <span class="amount" id="price-plus">25</span>
+          <span class="per">/month</span>
+        </div>
+        <div class="plan-billing" id="billing-plus">Billed monthly</div>
+        <a href="#" class="plan-btn red" id="link-plus">Join Plus</a>
+        <ul class="plan-features">
+          <li>Everything in Starter</li>
+          <li>Up to 8 devices</li>
+          <li>VLESS REALITY obfuscation</li>
+          <li>Dedicated streaming servers</li>
+          <li>Split-tunneling &amp; auto-connect</li>
+          <li>Ad &amp; tracker blocking</li>
+          <li class="no">Dedicated IP address</li>
+        </ul>
+      </div>
+      <!-- VIP -->
+      <div class="plan-card">
+        <div class="plan-name">VIP</div>
+        <div class="plan-desc">Unlimited devices, a dedicated IP and priority support. The full vault.</div>
+        <div class="plan-price">
+          <span class="dollar">$</span>
+          <span class="amount" id="price-vip">32</span>
+          <span class="per">/month</span>
+        </div>
+        <div class="plan-billing" id="billing-vip">Billed monthly</div>
+        <a href="#" class="plan-btn outline" id="link-vip">Go VIP</a>
+        <ul class="plan-features">
+          <li>Everything in Plus</li>
+          <li>Unlimited devices</li>
+          <li>Dedicated IP address</li>
+          <li>Port forwarding</li>
+          <li>Priority 24/7 support</li>
+          <li>Early access to new servers</li>
+          <li>Locked-in founder pricing</li>
+        </ul>
+      </div>
+    </div>
+    <div class="pricing-trust">
+      <span>🔒 256-bit secure checkout</span>
+      <span>💳 Card &amp; crypto</span>
+      <span>↩️ Cancel anytime</span>
+      <span>✅ 30-day money-back guarantee</span>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq" style="background:var(--bg2);border-top:1px solid var(--border);">
+  <div class="container">
+    <div class="section-label">Questions</div>
+    <div class="section-title">Frequently asked</div>
+    <div class="faq-list">
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">Do you really keep no logs? <span class="faq-icon">+</span></div>
+        <div class="faq-a">Correct. GearsVPN does not record your traffic, browsing history, DNS queries, or connection timestamps. We designed the service so there is simply nothing to log, hand over, or leak.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">How fast is it? <span class="faq-icon">+</span></div>
+        <div class="faq-a">We run on WireGuard and VLESS REALITY — modern protocols built for low latency and high throughput. With unlimited bandwidth and no throttling, most members see speeds close to their normal connection — fast enough for 4K streaming and gaming.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">What can I pay with? <span class="faq-icon">+</span></div>
+        <div class="faq-a">Card and major cryptocurrencies including Bitcoin, Ethereum, and USDT. Crypto lets you keep your subscription fully pseudonymous. Each plan is a single charge for the term you choose.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">What is the difference between the plans? <span class="faq-icon">+</span></div>
+        <div class="faq-a">Starter covers the essentials on up to 3 devices. Plus adds more devices, REALITY obfuscation, streaming-tuned servers and ad-blocking. VIP unlocks unlimited devices, a dedicated IP, port forwarding and priority support.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">Can I cancel anytime? <span class="faq-icon">+</span></div>
+        <div class="faq-a">Yes. Every plan is a rolling subscription you can cancel in one click from your dashboard — no contracts and no retention hoops. Your access continues until the end of the paid term.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">Is there a money-back guarantee? <span class="faq-icon">+</span></div>
+        <div class="faq-a">Every plan is backed by a 30-day money-back guarantee. If GearsVPN is not for you, contact support within 30 days of your purchase for a full refund — no questions asked.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<div class="cta-section">
+  <h2>Go private today.</h2>
+  <p>Join GearsVPN risk-free. If it's not for you, the first 30 days are on us.</p>
+  <a href="#pricing" class="btn-primary-lg">Get GearsVPN</a>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <a href="#top" class="logo">⚙️ Gears<em>VPN</em></a>
+      <p>A fast, no-logs VPN for people who'd rather keep their business their own. Anonymous signup, modern encryption, and apps for every device.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Product</h4>
+      <a href="#features">Features</a>
+      <a href="#network">Network</a>
+      <a href="#apps">Apps</a>
+      <a href="#pricing">Pricing</a>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <a href="#how-it-works">How it works</a>
+      <a href="#faq">FAQ</a>
+      <a href="#pricing">Get started</a>
+    </div>
+    <div class="footer-col">
+      <h4>Legal</h4>
+      <a href="terms.html">Terms of Service</a>
+      <a href="privacy.html">Privacy Policy</a>
+      <a href="refund.html">Refund Policy</a>
+      <a href="nologs.html">No-logs Policy</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>&copy; 2026 GearsVPN. All rights reserved.</span>
+    <div>
+      <a href="terms.html">Terms</a>
+      <a href="privacy.html">Privacy</a>
+      <a href="refund.html">Refunds</a>
+      <a href="#pricing">Pricing</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+const prices = {
+  monthly:  {starter:{price:"15",billing:"Billed monthly"},          plus:{price:"25",billing:"Billed monthly"},             vip:{price:"32",billing:"Billed monthly"}},
+  quarterly:{starter:{price:"40",billing:"Billed every 3 months"},   plus:{price:"65",billing:"Billed every 3 months"},       vip:{price:"67",billing:"Billed every 3 months"}},
+  biannual: {starter:{price:"70",billing:"Billed every 6 months"},   plus:{price:"90",billing:"Billed every 6 months"},       vip:{price:"100",billing:"Billed every 6 months"}},
+  annual:   {starter:{price:"120",billing:"Billed annually"},         plus:{price:"140",billing:"Billed annually"},            vip:{price:"150",billing:"Billed annually"}}
+};
+
+function setBilling(period, btn){
+  document.querySelectorAll(".toggle-btn").forEach(b=>b.classList.remove("active"));
+  btn.classList.add("active");
+  const p = prices[period];
+  ["starter","plus","vip"].forEach(plan=>{
+    document.getElementById("price-"+plan).textContent = p[plan].price;
+    document.getElementById("billing-"+plan).textContent = p[plan].billing;
+    document.getElementById("link-"+plan).href = "checkout.html?plan="+plan+"&billing="+period;
+  });
+}
+
+// Set default links on load
+["starter","plus","vip"].forEach(plan=>{
+  document.getElementById("link-"+plan).href = "checkout.html?plan="+plan+"&billing=monthly";
+});
+
+function toggleFaq(el){
+  const item = el.parentElement;
+  item.classList.toggle("open");
+}
+</script>
+</body>
+</html>

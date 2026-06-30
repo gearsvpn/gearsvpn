@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Checkout &mdash; GearsVPN</title>
+<style>
+:root{--primary:#f01d4f;--primary-dark:#c8143a;--bg:#080808;--card:#181818;--border:#2a2a2a;--text:#ffffff;--muted:#888;--success:#22c55e;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--bg);color:var(--text);font-family:"Segoe UI",system-ui,sans-serif;min-height:100vh;}
+nav{display:flex;align-items:center;justify-content:space-between;padding:1rem 2rem;border-bottom:1px solid var(--border);background:#0f0f0f;}
+.logo{font-size:1.2rem;font-weight:900;color:var(--text);text-decoration:none;}
+.logo em{color:var(--primary);font-style:normal;}
+.back-link{color:var(--muted);text-decoration:none;font-size:.88rem;}
+.back-link:hover{color:var(--text);}
+.checkout-wrap{max-width:960px;margin:2.5rem auto;padding:0 1.5rem;display:grid;grid-template-columns:1fr 380px;gap:2rem;}
+@media(max-width:768px){.checkout-wrap{grid-template-columns:1fr}}
+h2{font-size:1.4rem;font-weight:800;margin-bottom:1.5rem;}
+.card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:1.75rem;}
+label{display:block;font-size:.82rem;color:var(--muted);margin-bottom:.35rem;margin-top:1rem;}
+label:first-of-type{margin-top:0;}
+input,select,textarea{width:100%;background:var(--bg);border:1px solid var(--border);color:var(--text);padding:.65rem .9rem;border-radius:8px;font-size:.9rem;outline:none;transition:border-color .2s;}
+input:focus,select:focus,textarea:focus{border-color:var(--primary);}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
+.pay-section-title{font-size:.75rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);font-weight:700;margin:1.5rem 0 .75rem;border-top:1px solid var(--border);padding-top:1.25rem;}
+.pay-logos{display:flex;align-items:center;gap:.75rem;flex-wrap:wrap;margin-bottom:1.25rem;}
+.pay-note{font-size:.8rem;color:var(--muted);background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:.85rem 1rem;line-height:1.7;}
+.pay-note strong{color:var(--text);}
+.btn-pay{display:block;width:100%;margin-top:1.5rem;padding:.9rem;background:var(--primary);color:#fff;border:none;border-radius:10px;font-size:1rem;font-weight:800;cursor:pointer;transition:background .2s;text-align:center;text-decoration:none;}
+.btn-pay:hover{background:var(--primary-dark);}
+.summary-plan{display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem;}
+.summary-plan .name{font-weight:800;font-size:1rem;}
+.summary-plan .features{font-size:.78rem;color:var(--muted);margin-top:.25rem;}
+.summary-plan .price{font-size:1.4rem;font-weight:900;color:var(--primary);}
+.summary-line{display:flex;justify-content:space-between;font-size:.85rem;color:var(--muted);padding:.45rem 0;border-bottom:1px solid var(--border);}
+.summary-total{display:flex;justify-content:space-between;font-weight:800;font-size:1rem;margin-top:1rem;padding-top:1rem;border-top:2px solid var(--border);}
+.trust-row{display:flex;flex-direction:column;gap:.5rem;margin-top:1.25rem;}
+.trust-item{font-size:.78rem;color:var(--muted);}
+</style>
+</head>
+<body>
+<nav>
+  <a href="index.html" class="logo">&#9881;&#65039; Gears<em>VPN</em></a>
+  <a href="index.html" class="back-link">&larr; Back to plans</a>
+</nav>
+<div class="checkout-wrap">
+  <div>
+    <h2>Complete your order</h2>
+    <div class="card">
+      <label>Full Name</label>
+      <input type="text" id="fname" placeholder="John Doe">
+      <label>Email Address</label>
+      <input type="email" id="femail" placeholder="john@example.com">
+      <div class="row2">
+        <div><label>Phone (optional)</label><input type="tel" id="fphone" placeholder="+1 555 0000"></div>
+        <div><label>Country</label>
+          <select id="fcountry">
+            <option value="">Select country</option>
+            <option>United States</option><option>United Kingdom</option><option>Canada</option>
+            <option>Australia</option><option>Pakistan</option><option>India</option>
+            <option>Germany</option><option>France</option><option>Other</option>
+          </select>
+        </div>
+      </div>
+      <div class="pay-section-title">Payment Method</div>
+      <div class="pay-logos">
+        <span style="display:inline-flex;align-items:center;background:#1c3c8c;color:#fff;font-size:.75rem;font-weight:800;padding:.35rem .8rem;border-radius:6px;font-family:Arial,sans-serif">Pay<span style="color:#009cde">Pal</span></span>
+        <span style="display:inline-flex;align-items:center;background:#1a1f71;color:#fff;font-size:.75rem;font-weight:800;padding:.35rem .8rem;border-radius:6px;letter-spacing:.06em;font-family:Arial,sans-serif">VISA</span>
+        <span style="display:inline-flex;align-items:center;gap:.3rem;background:#fff;color:#000;font-size:.72rem;font-weight:800;padding:.35rem .7rem;border-radius:6px;font-family:Arial,sans-serif"><span style="color:#eb001b;font-size:1rem">&#9679;</span><span style="color:#f79e1b;font-size:1rem;margin-left:-.4rem">&#9679;</span> Mastercard</span>
+        <span style="font-size:.75rem;color:var(--muted)">Card &amp; Crypto accepted</span>
+      </div>
+      <div class="pay-note">
+        <strong>Secure payment via Lava.top</strong><br>
+        Click the button below to pay securely with your card or crypto. You will be redirected to our payment processor.
+      </div>
+      <label style="margin-top:1rem">Additional Notes (optional)</label>
+      <textarea id="fnotes" rows="2" placeholder="Any special requirements..."></textarea>
+      <button class="btn-pay" onclick="payNow()">&#128274; Pay Now &mdash; Secure Checkout</button>
+      <div style="text-align:center;font-size:.75rem;color:var(--muted);margin-top:.75rem">By proceeding you agree to our <a href="terms.html" style="color:var(--primary)">Terms of Service</a> and <a href="privacy.html" style="color:var(--primary)">Privacy Policy</a>.</div>
+    </div>
+  </div>
+  <div>
+    <h2>Order Summary</h2>
+    <div class="card">
+      <div class="summary-plan">
+        <div><div class="name" id="sum-name">Plus</div><div class="features" id="sum-features">Up to 8 devices &middot; All servers</div></div>
+        <div class="price" id="sum-price">$25</div>
+      </div>
+      <div class="summary-line"><span>Plan</span><span id="sum-plan-label">Plus</span></div>
+      <div class="summary-line"><span>Billing</span><span id="sum-billing">Monthly</span></div>
+      <div class="summary-line"><span>Setup Fee</span><span style="color:var(--success)">FREE</span></div>
+      <div class="summary-total"><span>Total Due</span><span id="sum-total">$25.00</span></div>
+      <div class="trust-row">
+        <div class="trust-item">&#128274; Secure payment &mdash; card &amp; crypto</div>
+        <div class="trust-item">&#9889; Instant activation</div>
+        <div class="trust-item">&#8617;&#65039; 30-day money-back guarantee</div>
+        <div class="trust-item">&#128172; 24/7 support</div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+var params = new URLSearchParams(location.search);
+var plan = params.get("plan") || "plus";
+var billing = params.get("billing") || "monthly";
+var planData = {
+  starter:{name:"Starter",features:"Up to 3 devices &middot; All 15 servers &middot; WireGuard",prices:{monthly:15,quarterly:40,biannual:70,annual:120}},
+  plus:{name:"Plus",features:"Up to 8 devices &middot; VLESS REALITY &middot; Streaming servers",prices:{monthly:25,quarterly:65,biannual:90,annual:140}},
+  vip:{name:"VIP",features:"Unlimited devices &middot; Dedicated IP &middot; Priority support",prices:{monthly:32,quarterly:67,biannual:100,annual:150}}
+};
+var billingLabels = {monthly:"Monthly (1 Month)",quarterly:"Quarterly (3 Months)",biannual:"6 Months",annual:"Annual (1 Year)"};
+var payLinks = {
+  monthly:{starter:"#",plus:"#",vip:"#"},
+  quarterly:{starter:"#",plus:"#",vip:"#"},
+  biannual:{starter:"#",plus:"#",vip:"#"},
+  annual:{starter:"#",plus:"#",vip:"#"}
+};
+function init(){
+  var d = planData[plan] || planData.plus;
+  var price = d.prices[billing] || d.prices.monthly;
+  document.getElementById("sum-name").textContent = d.name;
+  document.getElementById("sum-features").innerHTML = d.features;
+  document.getElementById("sum-price").textContent = "$" + price;
+  document.getElementById("sum-plan-label").textContent = d.name;
+  document.getElementById("sum-billing").textContent = billingLabels[billing] || billing;
+  document.getElementById("sum-total").textContent = "$" + price + ".00";
+}
+init();
+function saveOrder(){
+  var name = document.getElementById("fname").value.trim();
+  var email = document.getElementById("femail").value.trim();
+  if(!name || !email){ alert("Please fill in your name and email first."); return false; }
+  var d = planData[plan] || planData.plus;
+  var price = d.prices[billing] || d.prices.monthly;
+  var orders = JSON.parse(localStorage.getItem("gv_orders") || "[]");
+  var exists = orders.find(function(o){ return o.email===email && o.plan===d.name && o.status==="Pending Payment"; });
+  if(!exists){
+    orders.push({
+      id:"INV-"+Date.now(), name:name, email:email,
+      plan:d.name, billing:billingLabels[billing]||billing,
+      amount:price, status:"Pending Payment",
+      date:new Date().toLocaleDateString(),
+      notes:document.getElementById("fnotes").value
+    });
+    localStorage.setItem("gv_orders", JSON.stringify(orders));
+  }
+  return {name:name, email:email};
+}
+function payNow(){
+  var r = saveOrder(); if(!r) return;
+  var link = (payLinks[billing] || payLinks.monthly)[plan] || "#";
+  window.open(link, "_blank");
+}
+</script>
+</body>
+</html>
