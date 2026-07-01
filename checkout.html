@@ -110,10 +110,10 @@ var planData = {
 };
 var billingLabels = {monthly:"Monthly (1 Month)",quarterly:"Quarterly (3 Months)",biannual:"6 Months",annual:"Annual (1 Year)"};
 var payLinks = {
-  monthly:{starter:"#",plus:"#",vip:"#"},
-  quarterly:{starter:"#",plus:"#",vip:"#"},
-  biannual:{starter:"#",plus:"#",vip:"#"},
-  annual:{starter:"#",plus:"#",vip:"#"}
+  monthly:  {starter:"https://app.lava.top/products/9d3fa9f3-cda8-4adc-9aa9-ece512035ed1/90f72fa7-6003-491d-b94a-817cfa1b7318?currency=USD",plus:"https://app.lava.top/products/9d3fa9f3-cda8-4adc-9aa9-ece512035ed1/5b81d8d9-3ea0-4149-aa66-c67866bcaa68?currency=USD",vip:"https://app.lava.top/products/9d3fa9f3-cda8-4adc-9aa9-ece512035ed1/aff8f1f4-71e9-4dd8-9b25-e3e5d3666fe1?currency=USD"},
+  quarterly:{starter:"https://app.lava.top/products/3617290b-2bca-4cda-8f4e-52c38d774224/a73ba8c7-e457-4672-990a-cf2eb7bdc62b?currency=USD",plus:"https://app.lava.top/products/3617290b-2bca-4cda-8f4e-52c38d774224/d7404587-4a1e-4379-96a9-f81840b77686?currency=USD",vip:"https://app.lava.top/products/3617290b-2bca-4cda-8f4e-52c38d774224/aee82b61-3be9-48cd-9faf-6ca5ecdc355e?currency=USD"},
+  biannual: {starter:"https://app.lava.top/products/93dd1dbc-602b-4abc-be5e-b9349baeb9b0/03e90191-d4a9-4e08-abaf-f067d4e0b27c?currency=USD",plus:"https://app.lava.top/products/93dd1dbc-602b-4abc-be5e-b9349baeb9b0/bea4767d-00be-4772-afb5-b4ebcf89b00c?currency=USD",vip:"https://app.lava.top/products/93dd1dbc-602b-4abc-be5e-b9349baeb9b0/a7d80a5d-ecd5-4c30-ba44-34f5fd4d11f2?currency=USD"},
+  annual:   {starter:"https://app.lava.top/products/97f8ba4a-53dd-4363-841d-557d98c57aa3/5d3ec229-fbf8-4516-87fd-6554157157bc?currency=USD",plus:"https://app.lava.top/products/97f8ba4a-53dd-4363-841d-557d98c57aa3/5cc6dae4-2d31-45a9-a0ca-2f8fef9b5056?currency=USD",vip:"https://app.lava.top/products/97f8ba4a-53dd-4363-841d-557d98c57aa3/2824d764-8f46-445d-8eee-8b322bc1785e?currency=USD"}
 };
 function init(){
   var d = planData[plan] || planData.plus;
